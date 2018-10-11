@@ -1,6 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+import VueResource from 'vue-resource'
 import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
@@ -12,7 +13,9 @@ import LangEn from './assets/i18n/en'
 import LangZh from './assets/i18n/zh'
 import defaultLang from './assets/i18n/defaultLang'
 
+Vue.use(VueResource)
 Vue.use(VueIi8n)
+Vue.prototype.HTTPPREFIX = 'http://localhost:3000'
 Vue.config.productionTip = false
 const i18n = new VueIi8n({
   locale: localStorage.getItem('defaultLang') || defaultLang.get(),
