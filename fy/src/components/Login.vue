@@ -87,7 +87,7 @@ export default {
         if (valid) {
           this.$http.post(this.HTTPPREFIX + '/login', {userName: this.formLogin.name, password: this.formLogin.password}).then(response => {
             console.log(response)
-            this.$router.push({path: 'home'})
+            this.$router.push({path: 'home/review'})
           })
         } else {
           console.log('error submit!!')

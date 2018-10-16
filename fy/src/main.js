@@ -12,6 +12,10 @@ import VueIi8n from 'vue-i18n'
 import LangEn from './assets/i18n/en'
 import LangZh from './assets/i18n/zh'
 import defaultLang from './assets/i18n/defaultLang'
+import echarts from 'echarts'
+
+// 全局引入echarts
+Vue.prototype.$echarts = echarts
 
 Vue.use(VueResource)
 Vue.use(VueIi8n)
