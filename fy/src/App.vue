@@ -99,4 +99,44 @@ body {
 .color-placeholder {
   color: #C0C4CC;
 }
+/* reset */
+.home-tree.el-tree {
+  background-color: #253d55;
+  color: #c4d0d9;
+  font-weight: bolder;
+}
+.home-tree.el-tree >.el-tree-node {
+  border-left: solid 4px transparent;
+}
+.home-tree.el-tree >.el-tree-node.is-expanded {
+  border-left: solid 4px #409EFF;
+  background-color: #22374c;
+}
+.home-tree.el-tree.el-tree--highlight-current .el-tree-node.is-current>.el-tree-node__content {
+  background-color: #2a425a;
+  color: #409EFF;
+}
+.home-tree.el-tree .el-tree-node__content {
+  position: relative;
+  height: 40px;
+}
+.home-tree.el-tree .el-tree-node__content:hover {
+  background-color: #2a425a;
+}
+.home-tree.el-tree .el-tree-node__expand-icon {
+  position: absolute;
+  right: 10px;
+}
+.home-tree.el-tree .el-icon-caret-right:before {
+    content: "\e604";
+}
+.home-tree.el-tree .custom-tree-node {
+  padding-left: 4px;
+}
+.home-tree.el-tree .tree-is-expended {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  right: 10px;
+}
 </style>
