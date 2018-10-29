@@ -99,6 +99,9 @@ body {
 .color-placeholder {
   color: #C0C4CC;
 }
+.text-left {
+  text-align: left;
+}
 /* reset */
 .home-tree.el-tree {
   background-color: #253d55;
@@ -138,5 +141,11 @@ body {
   width: 10px;
   height: 10px;
   right: 10px;
+}
+.config-table-wrap th {
+  text-align: center !important;
+}
+.config-table-wrap td {
+  text-align: center !important;
 }
 </style>

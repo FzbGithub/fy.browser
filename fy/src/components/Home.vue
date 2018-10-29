@@ -9,13 +9,7 @@
         </div>
       </el-col>
     </el-row>
-    <!-- <el-menu  class="el-menu-vertical" background-color="#1c2b36" text-color="#909399" active-text-color="#409EFF">
-      <el-submenu index="1">
-        <template slot="title"><i class="el-icon-message"></i>概要</template>
-        <el-menu-item index="1-1">实时监控</el-menu-item>
-      </el-submenu>
-    </el-menu> -->
-    <el-tree class="home-tree" :data="data" :props="defaultProps" :default-expanded-keys="[4]" :highlight-current="true" node-key="id"  @node-expand="nodeCheck" ref="tree">
+    <el-tree class="home-tree" :data="data" :props="defaultProps" accordion :default-expanded-keys="defaultExpanded" :highlight-current="true" node-key="id"  @node-click="nodeClick" ref="tree">
       <span class="custom-tree-node" slot-scope="{ node, data }">
         <span>{{ node.label }}</span>
       </span>
@@ -24,19 +18,26 @@
   <el-container>
     <el-header>
       <el-row>
-        <el-col :span="1">
-          <el-button @click="showAside = !showAside"><i class="el-icon-d-arrow-right" v-if="!showAside"></i><i class="el-icon-d-arrow-left" v-if="showAside"></i></el-button>
+        <el-col :span="1"  class="text-left">
+          <img  @click="isShowAside" src="./../assets/images/icon-aside.png"  />
         </el-col>
         <el-col :span="23">
-          <span>某某某</span>
-          <el-dropdown>
-              <i class="el-icon-setting" style="margin-right: 15px"></i>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>查看</el-dropdown-item>
-                <el-dropdown-item>新增</el-dropdown-item>
-                <el-dropdown-item>删除</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
+          <el-row type="flex" justify="space-between" :gutter="10">
+            <el-col :span="23">
+              <el-dropdown trigger="click">
+                <span class="el-dropdown-link">
+                  某某某<i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item>修改密码</el-dropdown-item>
+                  <el-dropdown-item>退出</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+            </el-col>
+            <el-col :span="1" class="text-left">
+              <div class="man-wrap"><img src="./../assets/images/icon-man.png"  /></div>
+            </el-col>
+          </el-row>
         </el-col>
       </el-row>
     </el-header>
@@ -55,39 +56,40 @@ export default {
   data () {
     return {
       showAside: true,
-      data: [{
-        id: 1,
+      defaultExpanded: ['1'],
+      data: [ {
+        id: '1',
+        label: '发布管理',
+        children: [{
+          id: '1-1',
+          label: '发布中心',
+          link: 'publishCenter'
+        },
+        {
+          id: '1-2',
+          label: '发布配置',
+          link: 'configurationCenter'
+        }]
+      }, {
+        id: '2',
+        label: '配置管理',
+        children: [{
+          id: '2-1',
+          label: '用户配置'
+        }]
+      }, {
+        id: '3',
         label: '一级 1',
         children: [{
-          id: 4,
+          id: '3-1',
           label: '二级 1-1',
           children: [{
-            id: 9,
+            id: '3-1-1',
             label: '三级 1-1-1'
           }, {
-            id: 10,
+            id: '3-1-2',
             label: '三级 1-1-2'
           }]
-        }]
-      }, {
-        id: 2,
-        label: '一级 2',
-        children: [{
-          id: 5,
-          label: '二级 2-1'
-        }, {
-          id: 6,
-          label: '二级 2-2'
-        }]
-      }, {
-        id: 3,
-        label: '一级 3',
-        children: [{
-          id: 7,
-          label: '二级 3-1'
-        }, {
-          id: 8,
-          label: '二级 3-2'
         }]
       }],
       defaultProps: {
@@ -97,16 +99,18 @@ export default {
     }
   },
   mounted () {
-    this.$refs.tree.setCurrentKey(4)
-    let expanded = this.$refs.tree.$el.querySelector('.el-tree-node.is-expanded')
-    let expandedClass = expanded.getAttribute('class')
-    console.log(expandedClass)
-    expanded.setAttribute('class', expandedClass + ' a')
-    // console.log(this.$refs.tree.$el.querySelector('.el-tree-node.is-expanded'))
+    this.$refs.tree.setCurrentKey('1-1')
   },
   methods: {
-    nodeCheck: function (data, isParentChecked, hadChildrenChecked) {
+    nodeClick: function (data, isParentChecked, hadChildrenChecked) {
+      if (data.link) {
+        this.$router.push({path: data.link})
+      }
+      // this.$router.push({path: 'home/publishCenter'})
       console.log(data, isParentChecked, hadChildrenChecked)
+    },
+    isShowAside: function () {
+      this.showAside = !this.showAside
     }
   }
 }
@@ -131,6 +135,18 @@ export default {
     line-height: 60px;
     text-align: right;
     font-size: 12px;
+  }
+  .man-wrap {
+    display: inline-block;
+    height: 34px;
+    width: 34px;
+    margin-top: 12px;
+    border-radius: 50%;
+    background-color: #ddd;
+  }
+  .man-wrap img {
+    height: 100%;
+    width: 100%;
   }
   .main-wrap {
     background-color: #f7f7f7;

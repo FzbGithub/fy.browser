@@ -4,6 +4,7 @@ module.exports = {
     selectedLanguageSuccess: '已切换为中文',
     userName: '用户名',
     password: '密码',
+    captcha: '验证码',
     btnRegister: '注册',
     btnLogin: '登录',
     hello: '你好',

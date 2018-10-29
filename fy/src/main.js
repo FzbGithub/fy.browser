@@ -19,6 +19,13 @@ Vue.prototype.$echarts = echarts
 
 Vue.use(VueResource)
 Vue.use(VueIi8n)
+// http 统一拦截器
+Vue.http.interceptors.push(function (req, next) {
+  req.headers.set('access-token', localStorage.getItem('access-token'))
+  next((response) => {
+    return response
+  })
+})
 Vue.prototype.HTTPPREFIX = 'http://localhost:3000'
 Vue.config.productionTip = false
 const i18n = new VueIi8n({

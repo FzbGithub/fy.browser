@@ -25,6 +25,12 @@
             <el-form-item :label="$t('message.password')" prop="password" class="font-weight font-14">
               <el-input v-model="formLogin.password"></el-input>
             </el-form-item>
+            <el-form-item :label="$t('message.captcha')" prop="captcha" class="font-weight font-14">
+              <el-row :gutter="4">
+                <el-col :span="20"><el-input v-model="formLogin.captcha"></el-input></el-col>
+                <el-col :span="4"><img   @click="getCaptcha()" v-bind:src="initCaptcha" alt="svg"></el-col>
+              </el-row>
+            </el-form-item>
             <el-form-item>
               <!-- <el-button type="primary" @click="register('formLogin')">{{$t('message.btnRegister')}}</el-button> -->
               <el-button type="primary" @click="login('formLogin')">{{$t('message.btnLogin')}}</el-button>
@@ -43,9 +49,12 @@ export default {
     return {
       language: localStorage.getItem('defaultLang') === 'zh' ? '中文' : 'English',
       labelPosition: 'top',
+      captchaUrl: 'http://localhost:3000/captcha?hash=',
+      captchaHash: Math.random(),
       formLogin: {
         name: '',
-        password: ''
+        password: '',
+        captcha: ''
       },
       loginRules: {
         name: [{
@@ -57,8 +66,18 @@ export default {
           required: true,
           message: '请输入密码',
           trigger: 'blur'
+        }],
+        captcha: [{
+          required: true,
+          message: '请输入验证码',
+          trigger: 'blur'
         }]
       }
+    }
+  },
+  computed: {
+    initCaptcha: function () {
+      return this.captchaUrl + this.captchaHash
     }
   },
   methods: {
@@ -80,14 +99,21 @@ export default {
       }
       localStorage.setItem('defaultLang', unescape(this.$i18n.locale))
     },
+    getCaptcha: function () {
+      this.captchaHash = Math.random()
+    },
     register: function (formName) {
     },
     login: function (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$http.post(this.HTTPPREFIX + '/login', {userName: this.formLogin.name, password: this.formLogin.password}).then(response => {
-            console.log(response)
-            this.$router.push({path: 'home/review'})
+          this.$http.post(this.HTTPPREFIX + '/login', {userName: this.formLogin.name, password: this.formLogin.password, captcha: this.formLogin.captcha}).then(response => {
+            if (response && response.body && response.body.code) {
+              localStorage.setItem('access-token', response.body.data.token)
+              this.$router.push({path: 'home/publishCenter'})
+            } else {
+              this.$message.error(response.body.msg)
+            }
           })
         } else {
           console.log('error submit!!')
@@ -104,7 +130,7 @@ export default {
   .login-box {
     position: fixed;
     width: 560px;
-    height: 300px;
+    height: 430px;
     padding: 14px;
     right: 10px;
     top: 80px;

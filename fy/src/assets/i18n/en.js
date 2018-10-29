@@ -4,6 +4,7 @@ module.exports = {
     selectedLanguageSuccess: 'had changed English',
     userName: 'name',
     password: 'password',
+    captcha: 'captcha',
     btnRegister: 'register',
     btnLogin: 'login',
     hello: 'hello',
