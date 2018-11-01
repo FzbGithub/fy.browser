@@ -24,13 +24,13 @@
         <el-col :span="23">
           <el-row type="flex" justify="space-between" :gutter="10">
             <el-col :span="23">
-              <el-dropdown trigger="click">
+              <el-dropdown trigger="click" @command="dropdownClick">
                 <span class="el-dropdown-link">
                   某某某<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item>修改密码</el-dropdown-item>
-                  <el-dropdown-item>退出</el-dropdown-item>
+                  <el-dropdown-item  command="edit">修改密码</el-dropdown-item>
+                  <el-dropdown-item  command="exit">退出</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </el-col>
@@ -106,8 +106,20 @@ export default {
       if (data.link) {
         this.$router.push({path: data.link})
       }
-      // this.$router.push({path: 'home/publishCenter'})
-      console.log(data, isParentChecked, hadChildrenChecked)
+    },
+    dropdownClick: function (command) {
+      if (command === 'exit') {
+        let custId = localStorage.getItem('custId')
+        this.$http.post(this.HTTPPREFIX + '/api/loginOut', {custId: custId}).then(response => {
+          if (response && response.body && response.body.code) {
+            localStorage.setItem('access-token', '')
+            localStorage.setItem('custId', '')
+            this.$router.push('/')
+          } else {
+            this.$message.error(response.body.msg)
+          }
+        })
+      }
     },
     isShowAside: function () {
       this.showAside = !this.showAside

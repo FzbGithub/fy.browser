@@ -55,6 +55,11 @@ export default {
       }]
     }
   },
+  mounted () {
+    this.$http.post(this.HTTPPREFIX + '/api/homeList').then(res => {
+      console.log(res)
+    })
+  },
   methods: {
   }
 }

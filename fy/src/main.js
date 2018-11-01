@@ -23,7 +23,22 @@ Vue.use(VueIi8n)
 Vue.http.interceptors.push(function (req, next) {
   req.headers.set('access-token', localStorage.getItem('access-token'))
   next((response) => {
-    return response
+    if (response.status === 200) {
+      if (response.body.code === -1) {
+        this.$alert('token失效，请重新登录', '温馨提示', {
+          confirmButtonText: '确定',
+          callback: action => {
+            this.$router.push({path: '/'})
+          }
+        })
+      } else {
+        return response
+      }
+    } else if (response.status === 404) {
+      return response
+    } else {
+      return response
+    }
   })
 })
 Vue.prototype.HTTPPREFIX = 'http://localhost:3000'

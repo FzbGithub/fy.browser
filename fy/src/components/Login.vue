@@ -33,7 +33,7 @@
             </el-form-item>
             <el-form-item>
               <!-- <el-button type="primary" @click="register('formLogin')">{{$t('message.btnRegister')}}</el-button> -->
-              <el-button type="primary" @click="login('formLogin')">{{$t('message.btnLogin')}}</el-button>
+              <el-button type="primary" @keyup.enter="login('formLogin')" @click="login('formLogin')">{{$t('message.btnLogin')}}</el-button>
             </el-form-item>
           </el-form>
         </el-col>
@@ -110,6 +110,7 @@ export default {
           this.$http.post(this.HTTPPREFIX + '/login', {userName: this.formLogin.name, password: this.formLogin.password, captcha: this.formLogin.captcha}).then(response => {
             if (response && response.body && response.body.code) {
               localStorage.setItem('access-token', response.body.data.token)
+              localStorage.setItem('custId', response.body.data.custId)
               this.$router.push({path: 'home/publishCenter'})
             } else {
               this.$message.error(response.body.msg)
