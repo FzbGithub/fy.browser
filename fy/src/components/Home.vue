@@ -56,7 +56,7 @@ export default {
   data () {
     return {
       showAside: true,
-      defaultExpanded: ['1'],
+      defaultExpanded: ['3'],
       data: [ {
         id: '1',
         label: '发布管理',
@@ -79,17 +79,10 @@ export default {
         }]
       }, {
         id: '3',
-        label: '一级 1',
+        label: '用户管理',
         children: [{
           id: '3-1',
-          label: '二级 1-1',
-          children: [{
-            id: '3-1-1',
-            label: '三级 1-1-1'
-          }, {
-            id: '3-1-2',
-            label: '三级 1-1-2'
-          }]
+          label: '用户中心'
         }]
       }],
       defaultProps: {
@@ -99,7 +92,7 @@ export default {
     }
   },
   mounted () {
-    this.$refs.tree.setCurrentKey('1-1')
+    this.$refs.tree.setCurrentKey('3-1')
   },
   methods: {
     nodeClick: function (data, isParentChecked, hadChildrenChecked) {

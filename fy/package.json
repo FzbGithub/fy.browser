@@ -14,8 +14,10 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "echarts": "^4.2.0-rc.2",
     "element-ui": "^2.4.8",
     "vue": "^2.5.2",
+    "vue-i18n": "^8.3.0",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
@@ -38,7 +40,6 @@
     "copy-webpack-plugin": "^4.0.1",
     "cross-spawn": "^5.0.1",
     "css-loader": "^0.28.0",
-    "echarts": "^4.2.0-rc.1",
     "eslint": "^4.15.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-friendly-formatter": "^3.0.0",

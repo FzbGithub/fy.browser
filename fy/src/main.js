@@ -19,7 +19,8 @@ Vue.prototype.$echarts = echarts
 
 Vue.use(VueResource)
 Vue.use(VueIi8n)
-// http 统一拦截器
+// http 统一拦截器, 使用的是vue-resource插件，所以在每次跨域请求后台时都是一个新的session
+Vue.http.options.withCredentials = true
 Vue.http.interceptors.push(function (req, next) {
   req.headers.set('access-token', localStorage.getItem('access-token'))
   next((response) => {

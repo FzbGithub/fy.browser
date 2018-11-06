@@ -6,6 +6,7 @@ import Home from '@/components/Home'
 import Review from '@/components/Review'
 import PublishCenter from '@/components/PublishCenter'
 import ConfigurationCenter from '@/components/ConfigurationCenter'
+import UsersCenter from '@/components/UsersCenter'
 import MySvg from '@/components/MySvg'
 
 Vue.use(Router)
@@ -39,7 +40,8 @@ export default new Router({
       children: [
         {path: 'review', component: Review},
         {path: 'publishCenter', component: PublishCenter},
-        {path: 'configurationCenter', component: ConfigurationCenter}
+        {path: 'configurationCenter', component: ConfigurationCenter},
+        {path: 'usersCenter', component: UsersCenter}
       ]
     }
   ]

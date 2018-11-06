@@ -111,7 +111,7 @@ export default {
             if (response && response.body && response.body.code) {
               localStorage.setItem('access-token', response.body.data.token)
               localStorage.setItem('custId', response.body.data.custId)
-              this.$router.push({path: 'home/publishCenter'})
+              this.$router.push({path: 'home/usersCenter'})
             } else {
               this.$message.error(response.body.msg)
             }
